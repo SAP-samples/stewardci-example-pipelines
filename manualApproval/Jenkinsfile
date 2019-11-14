@@ -1,0 +1,17 @@
+node() {
+    stage("Part1") {
+        echo "This is an example with a manual approval step"
+        sh "echo Hello Part 2 > greeting.txt"
+    }
+    
+    stage("Manual Approval Step") {
+        timeout(5) {
+            input message: 'Send greeting?'
+        }
+    }
+    
+    stage("Part2") {
+        greeting = readFile encoding: 'UTF-8', file: 'greeting.txt'
+        echo "$greeting"
+    }
+}

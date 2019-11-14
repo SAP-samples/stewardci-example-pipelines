@@ -1,0 +1,46 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+    options {
+        skipDefaultCheckout()
+    }
+    parameters {
+        string(name:'GIT_URL', description:'The URL of the source Git repository to use.')
+        string(name:'GIT_BRANCH', description:'The branch in the source Git repository to use.')
+        string(name:'FILE_TO_SHOW', defaultValue:'', description:'The relative pathname of a file to print into the log.')
+    }
+    stages {
+        stage("Checkout") {
+            steps {
+                checkout(changelog: false, poll: false, scm: [
+                    $class: 'GitSCM',
+                    branches: [
+                        [name: params.GIT_BRANCH],
+                    ],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [
+                        [
+                            $class: 'RelativeTargetDirectory',
+                            relativeTargetDir: 'src',
+                        ],
+                    ],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [
+                        [
+                            url: params.GIT_URL,
+                        ],
+                    ],
+                ])
+            }
+        }
+        stage("Do Something With Sources") {
+            when {
+                expression { params.FILE_TO_SHOW }
+            }
+            steps {
+                echo("--- BEGIN ${params.FILE_TO_SHOW} ---\n${readFile(file: "src/${params.FILE_TO_SHOW}", encoding: 'UTF-8')}\n--- END ${params.FILE_TO_SHOW} ---")
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+    options {
+        skipDefaultCheckout()
+    }
+    parameters {
+        string(name:'MSG_BEFORE', defaultValue:'Going to sleep ...', description:'What to say before going to sleep?')
+        string(name:'SLEEP_FOR_SECONDS', defaultValue:'10', description:'How many seconds to sleep?')
+        string(name:'MSG_AFTER', defaultValue:'Just woke up!', description:'What to say when waking up?')
+    }
+    stages {
+        stage("Sleep") {
+            steps {
+                echo params.MSG_BEFORE
+                sleep time:params.SLEEP_FOR_SECONDS, unit:"SECONDS"
+                echo params.MSG_AFTER
+            }
+        }
+    }
+}

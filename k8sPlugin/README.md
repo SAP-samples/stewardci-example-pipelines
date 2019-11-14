@@ -1,0 +1,1 @@
+This pipeline uses the [Kubernetes plugin](https://github.com/jenkinsci/kubernetes-plugin) to execute parts of the pipeline in specific Docker containers.

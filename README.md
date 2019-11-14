@@ -1,2 +1,32 @@
-# stewardci-example-pipelines
-Simple example Jenkins pipelines (Jenkinsfiles) that can be executed in a project “Steward” instance. In the SAP/stewardci-core repository we have example Steward pipelines that will reference the example Jenkinsfiles in the example repository.
+# Description
+
+This project contains sample Jenkins pipeline definitions (`Jenkinsfile`s). The Jenkinsfiles are mainly designed as examples for [project "Steward"](https://github.com/SAP/stewardci-core), but might also work in regular Jenkins scenarios.
+
+# Requirements
+
+An own [project "Steward"](https://github.com/SAP/stewardci-core) instance.
+
+# Download and Installation
+
+Here you find more information about [how to install project "Steward"](https://github.com/SAP/stewardci-core/tree/master/docs/install).
+
+# Configuration
+
+Here you find [the project "Steward" examples](https://github.com/SAP/stewardci-core/tree/master/docs/examples) corresponding the the Jenkinsfiles in this project.
+
+# Limitations
+
+The pipelines in this project are only simple examples to demonstrate certain aspects. The are not meant to be used productively. You can use and modify them on your own risk.
+
+# Known Issues
+
+See GitHub issues on this project
+
+# How to obtain support
+
+Please create issues on this repository to contact us.
+
+# License
+
+Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+This file is licensed under the "SAP Sample Code License" except as noted otherwise in the [LICENSE](LICENSE) file.
