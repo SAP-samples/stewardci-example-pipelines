@@ -1,0 +1,10 @@
+node {
+  stage("Count") {
+    sh '''
+      for i in $(seq 1 100000)
+      do
+        echo Line $i
+      done
+    '''
+  }
+}
