@@ -47,7 +47,7 @@ spec:
                     mkdir -p /go/src/github.com/golang
                     ln -s `pwd` /go/src/github.com/golang/example
                     cd /go/src/github.com/golang/example/hello
-                    
+                    export GOCACHE=/go/.cache
                     # Build it
                     go build hello.go
                     
