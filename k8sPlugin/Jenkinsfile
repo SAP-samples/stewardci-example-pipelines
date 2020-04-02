@@ -1,7 +1,7 @@
 //Inspired by: https://github.com/jenkinsci/kubernetes-plugin/blob/master/README.md#container-group-support
 podTemplate(containers: [
-    containerTemplate(name: 'maven', image: 'maven:3.6.2-jdk-8', ttyEnabled: true, command: 'cat', runAsUser: 1000),
-    containerTemplate(name: 'golang', image: 'golang:1.13.3', ttyEnabled: true, command: 'cat', runAsUser: 1000)
+    containerTemplate(name: 'maven', image: 'maven:3.6.2-jdk-8', ttyEnabled: true, command: 'cat', runAsUser: '1000'),
+    containerTemplate(name: 'golang', image: 'golang:1.13.3', ttyEnabled: true, command: 'cat', runAsUser: '1000')
   ]) {'
 
     node(POD_LABEL) {
