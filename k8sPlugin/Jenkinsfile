@@ -1,5 +1,5 @@
 //Inspired by: https://github.com/jenkinsci/kubernetes-plugin/blob/master/README.md#container-group-support
-podTemplate(runAsUser: '1000',
+podTemplate(runAsUser: 1000,
              containers: [
     containerTemplate(name: 'maven', image: 'maven:3.6.2-jdk-8', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'golang', image: 'golang:1.13.3', ttyEnabled: true, command: 'cat')
