@@ -3,7 +3,7 @@ podTemplate(runAsUser: 1000,
              containers: [
     containerTemplate(name: 'maven', image: 'maven:3.6.2-jdk-8', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'golang', image: 'golang:1.13.3', ttyEnabled: true, command: 'cat')
-  ]) {'
+  ]) {
 
     node(POD_LABEL) {
         stage('Get a Maven project') {
