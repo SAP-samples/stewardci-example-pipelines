@@ -1,8 +1,30 @@
 //Inspired by: https://github.com/jenkinsci/kubernetes-plugin/blob/master/README.md#container-group-support
-podTemplate(containers: [
-    containerTemplate(name: 'maven', image: 'maven:3.6.2-jdk-8', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'golang', image: 'golang:1.13.3', ttyEnabled: true, command: 'cat')
-  ]) {
+podTemplate(yaml: """
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    seccomp.security.alpha.kubernetes.io/pod: runtime/default
+spec:
+  securityContext:
+    runAsUser: 1000
+    fsGroup: 1000
+  containers:
+  - name: maven
+    image: maven:3.6.2-jdk-8
+    tty: true
+    command: ['cat']
+    securityContext:
+      runAsNonRoot: true
+      readOnlyRootFilesystem: false
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["NET_RAW", "DAC_OVERRIDE", "SETGID", "SETUID", "MKNOD", "NET_BIND_SERVICE", "SETFCAP", "SETPCAP", "KILL"]
+  - name: golang
+    image: golang:1.13.3
+    tty: true
+    command: ['cat']
+""") {
 
     node(POD_LABEL) {
         stage('Get a Maven project') {
@@ -25,7 +47,7 @@ podTemplate(containers: [
                     mkdir -p /go/src/github.com/golang
                     ln -s `pwd` /go/src/github.com/golang/example
                     cd /go/src/github.com/golang/example/hello
-                    
+                    export GOCACHE=/go/.cache
                     # Build it
                     go build hello.go
                     
