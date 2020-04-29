@@ -1,0 +1,16 @@
+import org.jenkinsci.plugins.workflow.job.WorkflowJob
+import java.time.LocalDateTime
+
+node("master") {
+    stage("What time is it?") {
+        echo "Hello, it is " + LocalDateTime.now()
+    }
+    stage("Get Build Log via API") {
+        def job = ((WorkflowJob)Jenkins.get().getItemByFullName(env.JOB_NAME))
+        def build = job.getBuildByNumber(env.BUILD_NUMBER.toInteger())
+        def log = build.getLog()
+        echo "### The pipeline log so far ##############################"
+        echo "'${log}'"
+        echo "##########################################################"
+    }
+}
