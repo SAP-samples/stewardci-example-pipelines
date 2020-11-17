@@ -1,7 +1,7 @@
 import org.jenkinsci.plugins.workflow.job.WorkflowJob
 import java.time.LocalDateTime
 
-node("master") {
+node() {
     stage("What time is it?") {
         echo "Hello, it is " + LocalDateTime.now()
     }
