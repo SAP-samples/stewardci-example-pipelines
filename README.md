@@ -1,6 +1,9 @@
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/stewardci-example-pipelines)](https://api.reuse.software/info/github.com/SAP-samples/stewardci-example-pipelines)
+
 # Description
 
 This project contains sample Jenkins pipeline definitions (`Jenkinsfile`s). The Jenkinsfiles are mainly designed as examples for [project "Steward"](https://github.com/SAP/stewardci-core), but might also work in regular Jenkins scenarios.
+
 
 # Requirements
 
