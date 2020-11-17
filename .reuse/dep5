@@ -1,0 +1,9 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: stewardci-example-pipelines
+Upstream-Contact: Alexander Link <alexander.link@sap.com>
+Source: https://github.com/SAP-samples/stewardci-example-pipelines.git
+
+Files: **
+Copyright: 2019-2020 SAP SE or an SAP affiliate company and project "Steward" contributors
+License: Apache-2.0
+
