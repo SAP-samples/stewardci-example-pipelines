@@ -19,7 +19,7 @@ spec:
       readOnlyRootFilesystem: false
       allowPrivilegeEscalation: false
       capabilities:
-        drop: ["NET_RAW", "DAC_OVERRIDE", "SETGID", "SETUID", "MKNOD", "NET_BIND_SERVICE", "SETFCAP", "SETPCAP", "KILL"]
+        drop: ["AUDIT_WRITE", "NET_RAW", "DAC_OVERRIDE", "SETGID", "SETUID", "MKNOD", "NET_BIND_SERVICE", "SETFCAP", "SETPCAP", "KILL"]
   - name: golang
     image: golang:1.13.3
     tty: true
