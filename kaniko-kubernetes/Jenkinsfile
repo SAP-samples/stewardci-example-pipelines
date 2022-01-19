@@ -1,0 +1,75 @@
+#!/usr/bin/groovy
+
+KANIKO_POD_MANIFEST = '''\
+apiVersion: v1
+kind: Pod
+spec:
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:v1.7.0-debug
+    imagePullPolicy: IfNotPresent
+    command:
+    - cat
+    tty: true
+    resources:
+      limits:
+        cpu: 2
+        memory: 512Mi
+    securityContext:
+      allowPrivilegeEscalation: true
+'''
+
+DOCKERFILE = '''\
+FROM alpine:latest
+RUN \\
+  uname -a && \\
+  id && \\
+  cat /proc/self/status | grep -e '^Cap' && \\
+  apk -U upgrade && \\
+  apk add dropbear sudo && \\
+  ls -l /usr/sbin/dropbear && \\
+  adduser -D -g 1000 user1000 && \\
+  adduser user1000 wheel && \\
+  echo '%wheel ALL=(ALL) NOPASSWD: ALL' >/etc/sudoers.d/wheel
+USER user1000
+RUN \\
+  uname -a && \\
+  id && \\
+  sudo id && \\
+  sudo cat /proc/self/status | grep -e '^Cap'
+'''
+
+KANIKO_INIT_SCRIPT = """\
+cat >/workspace/Dockerfile <<"EOF"
+${DOCKERFILE}
+EOF
+"""
+
+KANIKO_RUN_SCRIPT = '''\
+/kaniko/executor \
+  --dockerfile=/workspace/Dockerfile \
+  --context=/workspace \
+  --no-push
+'''
+
+pipeline {
+  agent none
+  stages {
+    stage('Kaniko Build') {
+      agent {
+        kubernetes {
+          yaml KANIKO_POD_MANIFEST
+        }
+      }
+      steps {
+        container('kaniko') {
+          sh KANIKO_INIT_SCRIPT
+          sh KANIKO_RUN_SCRIPT
+        }
+      }
+    }
+  }
+}
