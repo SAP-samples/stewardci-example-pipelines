@@ -21,7 +21,7 @@ spec:
       capabilities:
         drop: ["AUDIT_WRITE", "NET_RAW", "DAC_OVERRIDE", "SETGID", "SETUID", "MKNOD", "NET_BIND_SERVICE", "SETFCAP", "SETPCAP", "KILL"]
   - name: golang
-    image: golang:1.13.3
+    image: golang:1.16.12
     tty: true
     command: ['cat']
 """) {
@@ -50,7 +50,7 @@ spec:
                     export GOCACHE=/go/.cache
                     # Build it
                     go build hello.go
-                    
+
                     # Run it
                     ./hello
                     """
