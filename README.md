@@ -29,6 +29,14 @@ See GitHub issues on this project
 
 Please create issues on this repository to contact us.
 
+## Contributions
+
+Checkout the [CONTRIBUTING.md file](CONTRIBUTING.md) for more details on how to contribute to this open source project.
+
+## Code of conduct
+
+Checkout the [CODE_OF_CONDUCT.md file](CODE_OF_CONDUCT.md) for more details on the code of conduct for this open source project.
+
 # License
 
 Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE) file.
