@@ -1,4 +1,4 @@
-node {
+pipeline {
     agent any
     options {
         skipDefaultCheckout()
@@ -7,13 +7,17 @@ node {
         string(name:'MSG_PREFIX', defaultValue:'Line ', description:'Message prefix')
         string(name:'COUNT_TO', defaultValue:'1000', description:'Count up to this number')
     }
-    stage("Count") {
-        sh '''
-            set +x
-            for i in $(seq 1 "$COUNT_TO")
-            do
-              echo "$MSG_PREFIX" $i
-            done
-        '''
+    stages {
+        stage("Count") {
+            steps {
+                sh '''
+                    set +x
+                    for i in $(seq 1 "$COUNT_TO")
+                    do
+                        echo "$MSG_PREFIX" $i
+                    done
+                '''
+            }
+        }
     }
 }
