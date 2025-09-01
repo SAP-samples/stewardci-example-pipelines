@@ -48,8 +48,6 @@ pipeline {
                         ls -lh /tmp/memory_test_* 2>/dev/null || echo "Memory test files created"
                         sleep 10
                         rm -f /tmp/memory_test_*
-                        RANDOM_TIME=$(od -An -N2 -i /dev/urandom | awk '{print int($1 % 601)}')
-                        sleep $RANDOM_TIME
                     """
                 }
             }
