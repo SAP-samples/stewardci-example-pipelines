@@ -48,7 +48,6 @@ pipeline {
                         ls -lh /tmp/memory_test_* 2>/dev/null || echo "Memory test files created"
                         sleep 10
                         rm -f /tmp/memory_test_*
-                        sleep $(( ( $$ + $(date +%s) ) % 601 ))
                     """
                 }
             }
