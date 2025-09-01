@@ -48,7 +48,7 @@ pipeline {
                         ls -lh /tmp/memory_test_* 2>/dev/null || echo "Memory test files created"
                         sleep 10
                         rm -f /tmp/memory_test_*
-                        SECONDS=$((RANDOM % 601))
+                        SECONDS=$(( $(date +%s%3N) % 601 ))
                         echo "Sleeping for $SECONDS seconds..."
                         sleep "$SECONDS"
                     """
