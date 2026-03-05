@@ -2,14 +2,13 @@
 podTemplate(yaml: """
   apiVersion: v1
   kind: Pod
-  metadata:
-    annotations:
-      seccomp.security.alpha.kubernetes.io/pod: runtime/default
   spec:
     securityContext:
       runAsUser: 10000
       runAsGroup: 10000
       fsGroup: 10000
+      seccompProfile:
+        type: RuntimeDefault
     containers:
     - name: maven
       image: maven:3-eclipse-temurin
@@ -22,7 +21,7 @@ podTemplate(yaml: """
         capabilities:
           drop: ["ALL"]
     - name: golang
-      image: golang:latest
+      image: golang:alpine
       tty: true
       command: ['cat']
 """) {
