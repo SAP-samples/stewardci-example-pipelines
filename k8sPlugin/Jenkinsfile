@@ -1,29 +1,30 @@
 //Inspired by: https://github.com/jenkinsci/kubernetes-plugin/blob/master/README.md#container-group-support
 podTemplate(yaml: """
-apiVersion: v1
-kind: Pod
-metadata:
-  annotations:
-    seccomp.security.alpha.kubernetes.io/pod: runtime/default
-spec:
-  securityContext:
-    runAsUser: 1000
-    fsGroup: 1000
-  containers:
-  - name: maven
-    image: maven:3.8.6-jdk-11
-    tty: true
-    command: ['cat']
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      seccomp.security.alpha.kubernetes.io/pod: runtime/default
+  spec:
     securityContext:
-      runAsNonRoot: true
-      readOnlyRootFilesystem: false
-      allowPrivilegeEscalation: false
-      capabilities:
-        drop: ["AUDIT_WRITE", "NET_RAW", "DAC_OVERRIDE", "SETGID", "SETUID", "MKNOD", "NET_BIND_SERVICE", "SETFCAP", "SETPCAP", "KILL"]
-  - name: golang
-    image: golang:1.16.12
-    tty: true
-    command: ['cat']
+      runAsUser: 10000
+      runAsGroup: 10000
+      fsGroup: 10000
+    containers:
+    - name: maven
+      image: maven:3-eclipse-temurin
+      tty: true
+      command: ['cat']
+      securityContext:
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+    - name: golang
+      image: golang:latest
+      tty: true
+      command: ['cat']
 """) {
 
     node(POD_LABEL) {
