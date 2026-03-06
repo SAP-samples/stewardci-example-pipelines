@@ -1,0 +1,10 @@
+version = 1
+SPDX-PackageName = "stewardci-example-pipelines"
+SPDX-PackageSupplier = "Alexander Link <alexander.link@sap.com>"
+SPDX-PackageDownloadLocation = "https://github.com/SAP-samples/stewardci-example-pipelines.git"
+
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2019-2020 SAP SE or an SAP affiliate company and project \"Steward\" contributors"
+SPDX-License-Identifier = "Apache-2.0"
