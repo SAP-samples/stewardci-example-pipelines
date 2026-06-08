@@ -40,3 +40,4 @@ Checkout the [CODE_OF_CONDUCT.md file](CODE_OF_CONDUCT.md) for more details on t
 # License
 
 Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE) file.
+
