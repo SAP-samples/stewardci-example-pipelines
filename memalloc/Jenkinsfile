@@ -1,0 +1,203 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent none
+
+    stages {
+        stage('Heavy Memory Allocation 1') {
+            agent {
+                kubernetes {
+                    yaml """
+                        apiVersion: v1
+                        kind: Pod
+                        spec:
+                          securityContext:
+                            runAsUser: 1000
+                            runAsGroup: 1000
+                            fsGroup: 1000
+                            runAsNonRoot: true
+                          containers:
+                          - name: alpine1
+                            image: alpine:3.18
+                            command:
+                            - cat
+                            tty: true
+                            securityContext:
+                              runAsUser: 1000
+                              runAsGroup: 1000
+                              runAsNonRoot: true
+                              allowPrivilegeEscalation: false
+                              capabilities:
+                                drop:
+                                - ALL
+                              readOnlyRootFilesystem: false
+                    """
+                }
+            }
+            steps {
+                container('alpine1') {
+                    echo "Starting heavy memory allocation test 1..."
+                    sh """
+                        free -h || echo "free command not available"
+                        echo "Allocating large memory blocks..."
+                        dd if=/dev/zero of=/tmp/memory_test_1 bs=1M count=500 2>/dev/null || echo "Memory allocation 1.1 completed"
+                        sleep 30
+                        dd if=/dev/zero of=/tmp/memory_test_2 bs=1M count=300 2>/dev/null || echo "Memory allocation 1.2 completed"
+                        sleep 30
+                        echo "Memory allocation stage 1 completed"
+                        ls -lh /tmp/memory_test_* 2>/dev/null || echo "Memory test files created"
+                        sleep 10
+                        rm -f /tmp/memory_test_*
+                    """
+                }
+            }
+        }
+
+        stage('Heavy Memory Allocation 2') {
+            agent {
+                kubernetes {
+                    yaml """
+                        apiVersion: v1
+                        kind: Pod
+                        spec:
+                          securityContext:
+                            runAsUser: 1000
+                            runAsGroup: 1000
+                            fsGroup: 1000
+                            runAsNonRoot: true
+                          containers:
+                          - name: alpine2
+                            image: alpine:3.18
+                            command:
+                            - cat
+                            tty: true
+                            securityContext:
+                              runAsUser: 1000
+                              runAsGroup: 1000
+                              runAsNonRoot: true
+                              allowPrivilegeEscalation: false
+                              capabilities:
+                                drop:
+                                - ALL
+                              readOnlyRootFilesystem: false
+                    """
+                }
+            }
+            steps {
+                container('alpine2') {
+                    echo "Starting heavy memory allocation test 2..."
+                    sh """
+                        free -h || echo "free command not available"
+                        echo "Allocating even larger memory blocks..."
+                        dd if=/dev/zero of=/tmp/memory_test_3 bs=1M count=800 2>/dev/null || echo "Memory allocation 2.1 completed"
+                        sleep 30
+                        dd if=/dev/zero of=/tmp/memory_test_4 bs=1M count=600 2>/dev/null || echo "Memory allocation 2.2 completed"
+                        sleep 30
+                        echo "Memory allocation stage 2 completed"
+                        ls -lh /tmp/memory_test_* 2>/dev/null || echo "Memory test files created"
+                        sleep 10
+                        rm -f /tmp/memory_test_*
+                    """
+                }
+            }
+        }
+
+        stage('Heavy Memory Allocation 3') {
+            agent {
+                kubernetes {
+                    yaml """
+                        apiVersion: v1
+                        kind: Pod
+                        spec:
+                          securityContext:
+                            runAsUser: 1000
+                            runAsGroup: 1000
+                            fsGroup: 1000
+                            runAsNonRoot: true
+                          containers:
+                          - name: alpine3
+                            image: alpine:3.18
+                            command:
+                            - cat
+                            tty: true
+                            securityContext:
+                              runAsUser: 1000
+                              runAsGroup: 1000
+                              runAsNonRoot: true
+                              allowPrivilegeEscalation: false
+                              capabilities:
+                                drop:
+                                - ALL
+                              readOnlyRootFilesystem: false
+                    """
+                }
+            }
+            steps {
+                container('alpine3') {
+                    echo "Starting heavy memory allocation test 3..."
+                    sh """
+                        free -h || echo "free command not available"
+                        echo "Allocating even larger memory blocks..."
+                        dd if=/dev/zero of=/tmp/memory_test_3 bs=1M count=800 2>/dev/null || echo "Memory allocation 3.1 completed"
+                        sleep 30
+                        dd if=/dev/zero of=/tmp/memory_test_4 bs=1M count=600 2>/dev/null || echo "Memory allocation 3.2 completed"
+                        sleep 30
+                        echo "Memory allocation stage 3 completed"
+                        ls -lh /tmp/memory_test_* 2>/dev/null || echo "Memory test files created"
+                        sleep 10
+                        rm -f /tmp/memory_test_*
+                    """
+                }
+            }
+        }
+
+        stage('Heavy Memory Allocation 4') {
+            agent {
+                kubernetes {
+                    yaml """
+                        apiVersion: v1
+                        kind: Pod
+                        spec:
+                          securityContext:
+                            runAsUser: 1000
+                            runAsGroup: 1000
+                            fsGroup: 1000
+                            runAsNonRoot: true
+                          containers:
+                          - name: alpine4
+                            image: alpine:3.18
+                            command:
+                            - cat
+                            tty: true
+                            securityContext:
+                              runAsUser: 1000
+                              runAsGroup: 1000
+                              runAsNonRoot: true
+                              allowPrivilegeEscalation: false
+                              capabilities:
+                                drop:
+                                - ALL
+                              readOnlyRootFilesystem: false
+                    """
+                }
+            }
+            steps {
+                container('alpine4') {
+                    echo "Starting heavy memory allocation test 4..."
+                    sh """
+                        free -h || echo "free command not available"
+                        echo "Allocating even larger memory blocks..."
+                        dd if=/dev/zero of=/tmp/memory_test_3 bs=1M count=800 2>/dev/null || echo "Memory allocation 4.1 completed"
+                        sleep 30
+                        dd if=/dev/zero of=/tmp/memory_test_4 bs=1M count=600 2>/dev/null || echo "Memory allocation 4.2 completed"
+                        sleep 30
+                        echo "Memory allocation stage 4 completed"
+                        ls -lh /tmp/memory_test_* 2>/dev/null || echo "Memory test files created"
+                        sleep 10
+                        rm -f /tmp/memory_test_*
+                    """
+                }
+            }
+        }
+    }
+}
